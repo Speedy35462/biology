@@ -1,0 +1,315 @@
+/* ─── Reset & Variables ─── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg:        #0d0f0e;
+    --surface:   #141714;
+    --border:    #252a25;
+    --border2:   #2f362f;
+    --text:      #e8ede8;
+    --muted:     #6b7a6b;
+    --accent:    #a8e063;
+    --accent2:   #5fa832;
+    --danger:    #e06363;
+    --header-bg: #1a1f1a;
+
+    --font-mono: 'Space Mono', monospace;
+    --font-sans: 'Syne', sans-serif;
+    --r: 6px;
+}
+
+/* ─── Base ─── */
+html { font-size: 16px; }
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    padding: 3rem 1.5rem 6rem;
+    position: relative;
+}
+
+/* Grain overlay */
+.noise {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    opacity: .03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ─── Layout ─── */
+main {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+/* ─── Header ─── */
+header {
+    margin-bottom: 3.5rem;
+}
+
+.label {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    color: var(--text);
+}
+
+h1 em {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.subtitle {
+    margin-top: .9rem;
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 420px;
+}
+
+/* ─── Inputs ─── */
+.inputs {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+}
+
+.input-group {
+    flex: 1;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+label {
+    font-family: var(--font-mono);
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--muted);
+}
+
+input[type="text"] {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--r);
+    padding: .8rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    color: var(--text);
+    width: 100%;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    letter-spacing: .05em;
+}
+
+input[type="text"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(168, 224, 99, .1);
+}
+
+input[type="text"]::placeholder {
+    color: var(--border2);
+}
+
+.gametes-preview {
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    color: var(--muted);
+    min-height: 1.1rem;
+    letter-spacing: .06em;
+    transition: opacity .2s;
+}
+
+.gametes-preview span {
+    display: inline-block;
+    background: var(--border);
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin: 2px 2px 0 0;
+    color: var(--accent2);
+}
+
+.cross-symbol {
+    font-family: var(--font-sans);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--border2);
+    margin-top: 2rem;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+/* ─── Button ─── */
+#btn-generate {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    background: var(--accent);
+    color: #0d0f0e;
+    border: none;
+    border-radius: var(--r);
+    padding: .75rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+    margin-bottom: 2.5rem;
+}
+
+#btn-generate:hover { background: #bfee7a; }
+#btn-generate:active { transform: scale(.97); }
+
+/* ─── Error ─── */
+.error {
+    font-family: var(--font-mono);
+    font-size: .8rem;
+    color: var(--danger);
+    background: rgba(224, 99, 99, .08);
+    border: 1px solid rgba(224, 99, 99, .2);
+    border-radius: var(--r);
+    padding: .7rem 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ─── Table ─── */
+#grid-container {
+    overflow-x: auto;
+    margin-bottom: 2rem;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    animation: fadeIn .3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+th, td {
+    border: 1px solid var(--border);
+    padding: .65rem .9rem;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: .9rem;
+    min-width: 60px;
+}
+
+/* Empty corner */
+td.corner {
+    background: var(--bg);
+    border-color: transparent;
+}
+
+/* Gamete headers */
+th.gamete-header {
+    background: var(--header-bg);
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: .08em;
+    border-color: var(--border2);
+}
+
+td.gamete-header {
+    background: var(--header-bg);
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: .08em;
+    border-color: var(--border2);
+}
+
+/* Genotype cells */
+td.genotype {
+    background: var(--surface);
+    color: var(--text);
+    transition: background .15s;
+    cursor: default;
+}
+
+td.genotype:hover {
+    background: var(--border);
+}
+
+/* Homozygous dominant */
+td.hom-dom  { color: #a8e063; }
+/* Heterozygous */
+td.het      { color: #e0c863; }
+/* Homozygous recessive */
+td.hom-rec  { color: #e08063; }
+
+/* ─── Stats ─── */
+#stats {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--r);
+    padding: 1.25rem 1.5rem;
+    animation: fadeIn .3s ease;
+}
+
+#stats h3 {
+    font-family: var(--font-mono);
+    font-size: .75rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+}
+
+.stat-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+
+.stat-item {
+    background: var(--border);
+    border-radius: 4px;
+    padding: .5rem .9rem;
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.stat-item .genotype-label {
+    color: var(--text);
+    letter-spacing: .04em;
+}
+
+.stat-item .ratio {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* ─── Utility ─── */
+.hidden { display: none !important; }

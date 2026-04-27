@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблиця Пеннета</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="noise"></div>
+
+    <main>
+        <header>
+            <div class="label">Генетика / Схрещування</div>
+            <h1>Таблиця<br><em>Пеннета</em></h1>
+            <p class="subtitle">Введіть генотипи батьків — отримайте розподіл генотипів нащадків</p>
+        </header>
+
+        <section class="inputs">
+            <div class="input-group">
+                <label for="parent1">Батько 1</label>
+                <input type="text" id="parent1" placeholder="напр. AaBb" autocomplete="off" spellcheck="false">
+                <div class="gametes-preview" id="preview1"></div>
+            </div>
+
+            <div class="cross-symbol">×</div>
+
+            <div class="input-group">
+                <label for="parent2">Батько 2</label>
+                <input type="text" id="parent2" placeholder="напр. AaBb" autocomplete="off" spellcheck="false">
+                <div class="gametes-preview" id="preview2"></div>
+            </div>
+        </section>
+
+        <button id="btn-generate" onclick="makeGrid()">
+            <span>Побудувати таблицю</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+        </button>
+
+        <div id="error-msg" class="error hidden"></div>
+
+        <div id="grid-container"></div>
+
+        <div id="stats" class="hidden"></div>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>
