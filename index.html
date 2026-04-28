@@ -13,29 +13,33 @@
 
     <main>
         <header>
-            <div class="label">Генетика / Схрещування</div>
-            <h1>Таблиця<br><em>Пеннета</em></h1>
+            <div class="label">Генетика / Гібридизація</div>
+            <h1>Решітка<br>Пеннета</h1>
             <p class="subtitle">Введіть генотипи батьків — отримайте розподіл генотипів нащадків</p>
         </header>
 
+        <div class="generation-label">P</div>
         <section class="inputs">
             <div class="input-group">
-                <label for="parent1">Батько 1</label>
+                <label for="parent1">Батьківський організм 1</label>
                 <input type="text" id="parent1" placeholder="напр. AaBb" autocomplete="off" spellcheck="false">
-                <div class="gametes-preview" id="preview1"></div>
+                <div class="gametes-row">
+                    <span class="generation-label">G</span>
+                    <div class="gametes-preview" id="preview1"></div>
+                </div>
             </div>
 
             <div class="cross-symbol">×</div>
 
             <div class="input-group">
-                <label for="parent2">Батько 2</label>
+                <label for="parent2">Батьківський організм 2</label>
                 <input type="text" id="parent2" placeholder="напр. AaBb" autocomplete="off" spellcheck="false">
                 <div class="gametes-preview" id="preview2"></div>
             </div>
         </section>
 
         <button id="btn-generate" onclick="makeGrid()">
-            <span>Побудувати таблицю</span>
+            <span>Побудувати решітку</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
@@ -43,8 +47,10 @@
 
         <div id="error-msg" class="error hidden"></div>
 
+        <div class="generation-label hidden" id="f1-label">F1</div>
         <div id="grid-container"></div>
 
+        <div class="generation-label hidden" id="f2-label">F2</div>
         <div id="stats" class="hidden"></div>
     </main>
 

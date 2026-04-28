@@ -136,6 +136,17 @@ input[type="text"]::placeholder {
     color: var(--border2);
 }
 
+.gametes-row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    min-height: 1.4rem;
+}
+
+.gametes-row span{
+    margin: 0;
+}
+
 .gametes-preview {
     font-family: var(--font-mono);
     font-size: .7rem;
@@ -259,6 +270,10 @@ td.genotype:hover {
     background: var(--border);
 }
 
+td.genotype.highlight {
+    background: rgba(168, 224, 99, .15);
+}
+
 /* Homozygous dominant */
 td.hom-dom  { color: #a8e063; }
 /* Heterozygous */
@@ -313,3 +328,14 @@ td.hom-rec  { color: #e08063; }
 
 /* ─── Utility ─── */
 .hidden { display: none !important; }
+
+.generation-label {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-left: 2px solid var(--accent2);
+    padding-left: .6rem;
+    margin-bottom: .75rem;
+}

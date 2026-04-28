@@ -4,6 +4,10 @@
  * Returns all possible gametes for a genotype string.
  * E.g. "AaBb" → ["AB", "Ab", "aB", "ab"]
  */
+
+// document.getElementById("f1-label").classList.add("hidden");
+// document.getElementById("f2-label").classList.add("hidden");
+
 function getGametes(genes) {
     const genePairs = [];
 
@@ -65,7 +69,7 @@ function validate(genotype) {
     // Each pair: first char uppercase letter, second char same letter (any case)
     for (let i = 0; i < genotype.length; i += 2) {
         const a = genotype[i], b = genotype[i + 1];
-        if (!/[A-Z]/.test(a)) return `Позиція ${i + 1}: алель "${a}" повинна бути великою літерою.`;
+        // if (!/\p{Lu}/u.test(a)) return `Позиція ${i + 1}: алель "${a}" повинна бути великою літерою.`;
         if (a.toLowerCase() !== b.toLowerCase()) return `Пара "${a}${b}": алелі мають бути однієї букви.`;
     }
     return null;
@@ -118,6 +122,19 @@ function drawTable(p1Gametes, p2Gametes) {
     }
 
     container.appendChild(table);
+
+        // Hover — подсветка одинаковых генотипов
+    const allCells = table.querySelectorAll("td.genotype");
+    allCells.forEach(cell => {
+        cell.addEventListener("mouseenter", () => {
+            allCells.forEach(c => {
+                if (c.textContent === cell.textContent) c.classList.add("highlight");
+            });
+        });
+        cell.addEventListener("mouseleave", () => {
+            allCells.forEach(c => c.classList.remove("highlight"));
+        });
+    });
 }
 
 // ─── Stats ───────────────────────────────────────────────────────
@@ -191,6 +208,8 @@ function hideError() {
 
 function makeGrid() {
     hideError();
+    document.getElementById("f1-label").classList.add("hidden");
+    document.getElementById("f2-label").classList.add("hidden");
     document.getElementById("grid-container").innerHTML = "";
     document.getElementById("stats").classList.add("hidden");
 
@@ -213,6 +232,8 @@ function makeGrid() {
 
     drawTable(p1Gametes, p2Gametes);
     renderStats(p1Gametes, p2Gametes);
+    document.getElementById("f1-label").classList.remove("hidden");
+    document.getElementById("f2-label").classList.remove("hidden");
 }
 
 // Allow Enter key to trigger
