@@ -132,7 +132,23 @@ function drawTable(p1Gametes, p2Gametes) {
             });
         });
         cell.addEventListener("mouseleave", () => {
-            allCells.forEach(c => c.classList.remove("highlight"));
+            allCells.forEach(c => {
+                if(c.dataset.status != "active") c.classList.remove("highlight")
+            });
+        });
+        cell.addEventListener("click", () => {
+            allCells.forEach(c => {
+                if (c.textContent === cell.textContent) {
+                    if(c.dataset.status == "active"){
+                        c.dataset.status = "hidden"
+                        c.classList.remove("highlight")
+                    } else{
+                        c.dataset.status = "active"
+
+                        c.classList.add("highlight")
+                    }
+                };
+            });
         });
     });
 }
@@ -209,7 +225,7 @@ function hideError() {
 function makeGrid() {
     hideError();
     document.getElementById("f1-label").classList.add("hidden");
-    document.getElementById("f2-label").classList.add("hidden");
+    // document.getElementById("f2-label").classList.add("hidden");
     document.getElementById("grid-container").innerHTML = "";
     document.getElementById("stats").classList.add("hidden");
 
@@ -233,7 +249,7 @@ function makeGrid() {
     drawTable(p1Gametes, p2Gametes);
     renderStats(p1Gametes, p2Gametes);
     document.getElementById("f1-label").classList.remove("hidden");
-    document.getElementById("f2-label").classList.remove("hidden");
+    // document.getElementById("f2-label").classList.remove("hidden");
 }
 
 // Allow Enter key to trigger
